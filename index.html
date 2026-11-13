@@ -3,133 +3,541 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#090b14">
-<title>RR Gaming Hub</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080912">
+<meta name="description" content="RR Gaming Hub - Discover and play exciting browser games.">
+<title>RR Gaming Hub | Play Beyond Limits</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+ --bg:#080912;
+ --panel:#111321;
+ --panel2:#171a2b;
+ --purple:#8557ff;
+ --blue:#27c9ff;
+ --text:#f7f7ff;
+ --muted:#9295aa;
+ --border:rgba(255,255,255,.08);
+}
 *{box-sizing:border-box}
-body{margin:0;background:#090b14;color:#fff;font-family:Arial,sans-serif}
-header{height:68px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:#111522;border-bottom:1px solid #252b40;position:sticky;top:0;z-index:5}
-.logo{font-size:22px;font-weight:900;color:#8c79ff}
-.logo span{color:white}
-nav a{color:#bbb;text-decoration:none;margin-left:18px;font-size:14px}
-.hero{padding:65px 7%;background:radial-gradient(ellipse at 80% 20%,#392276 0,transparent 45%),linear-gradient(120deg,#151a30,#090b14)}
-.hero h1{font-size:clamp(34px,7vw,60px);margin:0 0 15px}
-.hero h1 span{color:#9c87ff}
-.hero p{color:#b8bfd1;max-width:480px;line-height:1.7}
-.btn{display:inline-block;padding:13px 22px;background:#7958ff;color:white;border:0;border-radius:9px;text-decoration:none;font-weight:bold;margin-top:12px;cursor:pointer}
-main{padding:30px 5%}
-.search{width:100%;padding:15px;background:#171d2d;border:1px solid #303950;border-radius:10px;color:white;font-size:16px;outline:none}
-.categories{display:flex;gap:10px;overflow-x:auto;padding:20px 0}
-.cat{white-space:nowrap;padding:10px 17px;border-radius:20px;background:#191f30;color:#bbb;border:1px solid #303950;cursor:pointer}
-.cat.active,.cat:hover{background:#7958ff;color:white}
-.section-title{font-size:23px;margin:18px 0}
-.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:17px}
-.game{background:#151b2a;border:1px solid #282f43;border-radius:13px;overflow:hidden;transition:.2s}
-.game:hover{transform:translateY(-4px);border-color:#8c79ff}
-.cover{height:125px;display:grid;place-items:center;font-size:48px;background:linear-gradient(140deg,#27204d,#152b40)}
-.info{padding:13px}
-.info h3{font-size:15px;margin:0 0 7px}
-.info p{color:#9ca7bb;font-size:12px;margin:0}
-.play{display:block;text-align:center;background:#272044;color:#b8a9ff;padding:10px;text-decoration:none;font-size:13px;font-weight:bold}
-.empty{display:none;color:#aaa;padding:25px;text-align:center}
-.upload-area{margin-top:45px;padding:28px;background:#151b2a;border:1px solid #303950;border-radius:14px}
-.upload-area p{color:#aab2c5;line-height:1.6}
-footer{text-align:center;padding:30px;color:#81899b;border-top:1px solid #242b3e;font-size:13px}
-@media(max-width:500px){nav a{margin-left:10px;font-size:12px}.hero{padding:45px 6%}.games{grid-template-columns:repeat(2,minmax(0,1fr))}}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+ margin:0;background:var(--bg);color:var(--text);
+ font-family:Inter,Arial,sans-serif;
+ overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+button{cursor:pointer}
+.container{width:min(1160px,91%);margin:auto}
+
+/* NAVIGATION */
+header{
+ height:76px;position:sticky;top:0;z-index:20;
+ background:rgba(8,9,18,.88);
+ backdrop-filter:blur(20px);
+ border-bottom:1px solid var(--border);
+}
+.nav{
+ height:100%;display:flex;align-items:center;
+ justify-content:space-between;
+}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{
+ width:39px;height:39px;border-radius:12px;
+ background:linear-gradient(135deg,#8957ff,#27c9ff);
+ display:grid;place-items:center;font-weight:900;
+ font-size:19px;color:white;
+ box-shadow:0 0 25px #8557ff55;
+}
+.brand-name{font-size:19px;font-weight:900;letter-spacing:-1px}
+.brand-name span{color:#a88aff}
+.nav-links{display:flex;gap:30px;align-items:center}
+.nav-links a{font-size:13px;color:#b5b5c8;transition:.2s}
+.nav-links a:hover{color:white}
+.nav-button{
+ background:linear-gradient(120deg,#8052ff,#526bff);
+ padding:12px 19px;border-radius:10px;
+ font-weight:700;font-size:13px;
+}
+.menu-btn{
+ display:none;background:none;border:0;color:white;
+ font-size:25px;
+}
+
+/* HERO */
+.hero{
+ position:relative;min-height:550px;
+ display:flex;align-items:center;
+ overflow:hidden;
+ background:
+ radial-gradient(ellipse at 78% 40%,#5230a855,transparent 40%),
+ radial-gradient(ellipse at 15% 90%,#174a7350,transparent 40%);
+}
+.hero:after{
+ content:"";position:absolute;width:450px;height:450px;
+ border:1px solid #8557ff20;border-radius:50%;
+ right:-130px;top:40px;
+ box-shadow:0 0 0 55px #8557ff08,0 0 0 110px #8557ff05;
+ pointer-events:none;
+}
+.hero-inner{
+ display:grid;grid-template-columns:1fr 1fr;
+ align-items:center;gap:30px;padding:75px 0;
+ position:relative;z-index:2;
+}
+.eyebrow{
+ display:inline-flex;align-items:center;gap:8px;
+ color:#bba7ff;background:#8557ff18;
+ border:1px solid #8557ff45;
+ padding:9px 13px;border-radius:30px;
+ font-size:11px;font-weight:800;letter-spacing:1.2px;
+}
+.dot{width:7px;height:7px;background:#8bffce;border-radius:50%;
+ box-shadow:0 0 10px #8bffce}
+.hero h1{
+ font-size:clamp(43px,6.5vw,76px);
+ line-height:1.04;letter-spacing:-4px;
+ margin:25px 0 18px;font-weight:900;
+}
+.gradient-text{
+ background:linear-gradient(100deg,#aa8aff,#50caff);
+ -webkit-background-clip:text;background-clip:text;
+ color:transparent;
+}
+.hero p{color:#a2a4b8;line-height:1.8;font-size:15px;max-width:470px}
+.hero-actions{display:flex;gap:13px;margin-top:30px;flex-wrap:wrap}
+.primary-btn,.secondary-btn{
+ padding:15px 23px;border-radius:10px;
+ font-size:13px;font-weight:800;display:inline-flex;
+ align-items:center;gap:10px;
+}
+.primary-btn{
+ background:linear-gradient(110deg,#8655ff,#536aff);
+ box-shadow:0 8px 35px #7752ff45;
+}
+.secondary-btn{
+ border:1px solid #ffffff25;background:#ffffff08;
+}
+.primary-btn:hover,.secondary-btn:hover{transform:translateY(-3px)}
+.hero-art{
+ min-height:365px;position:relative;
+ display:grid;place-items:center;
+}
+.orbit{
+ width:310px;height:310px;border-radius:50%;
+ border:1px solid #926bff40;
+ display:grid;place-items:center;
+ box-shadow:0 0 100px #7550ff30,inset 0 0 70px #7550ff20;
+ position:relative;
+}
+.orbit:before,.orbit:after{
+ content:"";position:absolute;border:1px solid #36caff35;
+ border-radius:50%;
+}
+.orbit:before{inset:25px}
+.orbit:after{inset:-24px}
+.hero-symbol{
+ font-size:135px;
+ filter:drop-shadow(0 0 30px #9c6aff);
+ animation:float 4s ease-in-out infinite;
+}
+@keyframes float{
+ 0%,100%{transform:translateY(0) rotate(-5deg)}
+ 50%{transform:translateY(-18px) rotate(5deg)}
+}
+.float-card{
+ position:absolute;background:#171a2bdb;
+ border:1px solid #ffffff20;
+ padding:13px 16px;border-radius:13px;
+ backdrop-filter:blur(12px);
+ font-size:12px;font-weight:700;
+}
+.fc1{top:35px;right:0}
+.fc2{bottom:35px;left:0}
+.float-card span{color:#a88aff}
+
+/* GENERAL */
+.section{padding:65px 0}
+.section-head{
+ display:flex;justify-content:space-between;
+ align-items:end;gap:20px;margin-bottom:27px;
+}
+.section-head h2{font-size:27px;margin:0;letter-spacing:-1px}
+.section-head p{color:var(--muted);font-size:12px;margin:8px 0 0}
+.view-all{color:#ad91ff;font-size:13px;font-weight:700}
+.tag{
+ color:#a88aff;font-size:10px;font-weight:800;
+ letter-spacing:2px;margin-bottom:10px;
+}
+.category-list{
+ display:flex;gap:10px;overflow-x:auto;
+ padding:3px 0 22px;scrollbar-width:none;
+}
+.category-list::-webkit-scrollbar{display:none}
+.cat{
+ border:1px solid var(--border);
+ background:#141625;color:#b3b4c7;
+ border-radius:9px;padding:11px 17px;
+ white-space:nowrap;font-size:12px;font-weight:700;
+ transition:.2s;
+}
+.cat.active,.cat:hover{
+ background:#8056ff;color:white;border-color:#8056ff;
+ box-shadow:0 5px 20px #8056ff35;
+}
+
+/* GAME CARDS */
+.game-grid{
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:20px;
+}
+.game-card{
+ border:1px solid var(--border);
+ border-radius:16px;overflow:hidden;
+ background:linear-gradient(150deg,#171a2c,#10121e);
+ transition:transform .25s,border-color .25s;
+}
+.game-card:hover{
+ transform:translateY(-7px);
+ border-color:#906cff88;
+}
+.cover{
+ height:190px;position:relative;
+ display:grid;place-items:center;
+ overflow:hidden;
+}
+.cover:before{
+ content:"";position:absolute;width:180px;height:180px;
+ border:1px solid #ffffff22;border-radius:50%;
+ box-shadow:0 0 0 25px #ffffff08,0 0 0 50px #ffffff05;
+}
+.cover-icon{
+ font-size:78px;position:relative;z-index:1;
+ filter:drop-shadow(0 10px 20px #0008);
+ transition:.3s;
+}
+.game-card:hover .cover-icon{transform:scale(1.13) rotate(-5deg)}
+.cover.neon{background:radial-gradient(circle at 50% 50%,#6825a8,#17162c 72%)}
+.cover.ball{background:radial-gradient(circle,#145a88,#101b32 70%)}
+.cover.space{background:radial-gradient(circle,#4930a0,#10142a 70%)}
+.cover.race{background:radial-gradient(circle,#a04b20,#291426 70%)}
+.cover.puzzle{background:radial-gradient(circle,#237c70,#14272b 70%)}
+.cover.adventure{background:radial-gradient(circle,#684b25,#261a24 70%)}
+.game-badge{
+ position:absolute;top:13px;left:13px;z-index:2;
+ background:#080912bd;border:1px solid #ffffff20;
+ padding:7px 10px;border-radius:6px;
+ font-size:9px;font-weight:800;letter-spacing:1px;
+}
+.game-info{padding:17px}
+.game-info h3{font-size:16px;margin:0 0 9px}
+.game-meta{
+ display:flex;justify-content:space-between;
+ color:#85899e;font-size:11px;
+}
+.game-bottom{
+ display:flex;justify-content:space-between;
+ align-items:center;margin-top:18px;
+}
+.play-btn{
+ border:0;background:#8055ff;color:white;
+ padding:10px 14px;border-radius:8px;
+ font-size:11px;font-weight:800;
+}
+.coming{font-size:10px;color:#a99aff}
+
+/* FEATURE */
+.feature{
+ background:linear-gradient(110deg,#1b1640,#10182c);
+ border:1px solid #8060ff35;
+ border-radius:20px;padding:36px;
+ display:grid;grid-template-columns:1.2fr .8fr;
+ align-items:center;gap:20px;
+ overflow:hidden;position:relative;
+}
+.feature h2{font-size:31px;margin:12px 0}
+.feature p{color:#a7a8bc;line-height:1.8;font-size:13px}
+.feature-art{text-align:center;font-size:120px;
+ filter:drop-shadow(0 0 35px #8055ff);}
+
+/* SEARCH */
+.search-wrap{position:relative;max-width:420px;width:100%}
+.search{
+ width:100%;background:#151827;
+ border:1px solid #30334a;color:white;
+ padding:14px 17px 14px 42px;
+ border-radius:10px;outline:none;font-size:13px;
+}
+.search:focus{border-color:#936dff}
+.search-icon{position:absolute;left:15px;top:13px;color:#8589a0}
+
+/* EMPTY */
+.empty{
+ display:none;padding:35px;text-align:center;
+ color:var(--muted);background:#121522;border-radius:12px;
+}
+
+/* FOOTER */
+footer{
+ border-top:1px solid var(--border);
+ background:#0b0d17;padding:40px 0;
+}
+.footer-inner{
+ display:flex;justify-content:space-between;
+ align-items:center;gap:20px;flex-wrap:wrap;
+}
+.footer-inner p{color:#777d92;font-size:11px}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:11px;color:#999db0}
+.footer-links a:hover{color:white}
+
+/* RESPONSIVE */
+@media(max-width:750px){
+ .nav-links{
+ display:none;position:absolute;top:76px;left:0;right:0;
+ background:#101321;padding:22px 5%;
+ flex-direction:column;align-items:stretch;
+ border-bottom:1px solid var(--border);
+ }
+ .nav-links.show{display:flex}
+ .nav-button{text-align:center}
+ .menu-btn{display:block}
+ .hero-inner{grid-template-columns:1fr;padding:65px 0 40px}
+ .hero-art{min-height:290px}
+ .orbit{width:235px;height:235px}
+ .hero-symbol{font-size:100px}
+ .hero h1{letter-spacing:-2.5px}
+ .game-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ .cover{height:145px}
+ .cover-icon{font-size:65px}
+ .game-info{padding:12px}
+ .game-info h3{font-size:13px}
+ .feature{grid-template-columns:1fr;padding:25px}
+ .feature-art{font-size:85px}
+ .section{padding:45px 0}
+ .section-head h2{font-size:22px}
+}
+@media(max-width:380px){
+ .game-grid{grid-template-columns:1fr}
+ .hero h1{font-size:43px}
+}
 </style>
 </head>
 <body>
 
 <header>
- <div class="logo">RR <span>GAMING</span></div>
- <nav>
-  <a href="#home">Home</a>
-  <a href="#games">Games</a>
-  <a href="#upload">Upload</a>
- </nav>
+ <div class="container nav">
+  <a href="#home" class="brand">
+   <div class="logo">RR</div>
+   <div class="brand-name">RR <span>GAMING</span></div>
+  </a>
+  <nav class="nav-links" id="navLinks">
+   <a href="#home">Home</a>
+   <a href="#games">Games</a>
+   <a href="#featured">Featured</a>
+   <a href="#about">About</a>
+   <a class="nav-button" href="#games">PLAY NOW ↗</a>
+  </nav>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+ </div>
 </header>
 
 <section class="hero" id="home">
- <h1>PLAY. <span>EXPLORE.</span><br>REPEAT.</h1>
- <p>Discover exciting browser games. Play instantly on your phone or computer. No installation required.</p>
- <a class="btn" href="#games">Explore Games →</a>
+ <div class="container hero-inner">
+  <div>
+   <div class="eyebrow"><span class="dot"></span> THE ULTIMATE GAMING DESTINATION</div>
+   <h1>PLAY BEYOND<br><span class="gradient-text">LIMITS.</span></h1>
+   <p>Enter a world of endless entertainment. Discover exciting browser games, explore new adventures and play directly from your device.</p>
+   <div class="hero-actions">
+    <a class="primary-btn" href="#games">EXPLORE GAMES <span>→</span></a>
+    <a class="secondary-btn" href="#featured">DISCOVER MORE</a>
+   </div>
+  </div>
+  <div class="hero-art">
+   <div class="orbit"><div class="hero-symbol">🎮</div></div>
+   <div class="float-card fc1">⚡ <span>INSTANT PLAY</span></div>
+   <div class="float-card fc2">🌌 <span>NEW WORLDS</span></div>
+  </div>
+ </div>
 </section>
 
-<main id="games">
- <input class="search" id="search" placeholder="🔍 Search games..." autocomplete="off">
+<main class="container">
 
- <div class="categories" id="categories">
-  <button class="cat active" data-cat="All">All Games</button>
-  <button class="cat" data-cat="Action">Action</button>
-  <button class="cat" data-cat="Racing">Racing</button>
-  <button class="cat" data-cat="Arcade">Arcade</button>
-  <button class="cat" data-cat="Puzzle">Puzzle</button>
-  <button class="cat" data-cat="Adventure">Adventure</button>
+<section class="section" id="games">
+ <div class="section-head">
+  <div>
+   <div class="tag">YOUR NEXT ADVENTURE</div>
+   <h2>Explore Games</h2>
+   <p>Find your next favourite game.</p>
+  </div>
+  <div class="search-wrap">
+   <span class="search-icon">⌕</span>
+   <input class="search" id="search" placeholder="Search games..." aria-label="Search games">
+  </div>
  </div>
 
- <h2 class="section-title">🎮 Game Library</h2>
- <div class="games" id="gameList">
+ <div class="category-list" id="categories">
+  <button class="cat active" data-cat="All">✦ All Games</button>
+  <button class="cat" data-cat="Arcade">🎯 Arcade</button>
+  <button class="cat" data-cat="Action">⚔️ Action</button>
+  <button class="cat" data-cat="Racing">🏎️ Racing</button>
+  <button class="cat" data-cat="Adventure">🚀 Adventure</button>
+  <button class="cat" data-cat="Puzzle">🧩 Puzzle</button>
+ </div>
 
-  <article class="game" data-name="Neon Dash" data-cat="Arcade">
-   <div class="cover">⚡</div>
-   <div class="info"><h3>Neon Dash</h3><p>Arcade • Coming soon</p></div>
-   <a class="play" href="#upload">Coming Soon</a>
+ <div class="game-grid" id="gameGrid">
+  <article class="game-card" data-name="Neon Dash" data-cat="Arcade">
+   <div class="cover neon">
+    <span class="game-badge">FEATURED</span>
+    <span class="cover-icon">⚡</span>
+   </div>
+   <div class="game-info">
+    <h3>Neon Dash</h3>
+    <div class="game-meta"><span>Arcade</span><span>★ Featured</span></div>
+    <div class="game-bottom"><span class="coming">COMING SOON</span><button class="play-btn" disabled>SOON</button></div>
+   </div>
   </article>
 
-  <article class="game" data-name="Ball Breaker Infinity" data-cat="Arcade">
-   <div class="cover">🔮</div>
-   <div class="info"><h3>Ball Breaker Infinity</h3><p>Arcade • Coming soon</p></div>
-   <a class="play" href="#upload">Coming Soon</a>
+  <article class="game-card" data-name="Ball Breaker Infinity" data-cat="Arcade">
+   <div class="cover ball"><span class="cover-icon">🔮</span></div>
+   <div class="game-info">
+    <h3>Ball Breaker Infinity</h3>
+    <div class="game-meta"><span>Arcade</span><span>★ Classic</span></div>
+    <div class="game-bottom"><span class="coming">COMING SOON</span><button class="play-btn" disabled>SOON</button></div>
+   </div>
   </article>
 
-  <article class="game" data-name="Space Dash" data-cat="Adventure">
-   <div class="cover">🚀</div>
-   <div class="info"><h3>Space Dash</h3><p>Adventure • Coming soon</p></div>
-   <a class="play" href="#upload">Coming Soon</a>
+  <article class="game-card" data-name="Space Dash" data-cat="Adventure">
+   <div class="cover space"><span class="cover-icon">🚀</span></div>
+   <div class="game-info">
+    <h3>Space Dash</h3>
+    <div class="game-meta"><span>Adventure</span><span>★ Explore</span></div>
+    <div class="game-bottom"><span class="coming">COMING SOON</span><button class="play-btn" disabled>SOON</button></div>
+   </div>
   </article>
 
+  <article class="game-card" data-name="Turbo Racing" data-cat="Racing">
+   <div class="cover race"><span class="cover-icon">🏎️</span></div>
+   <div class="game-info">
+    <h3>Turbo Racing</h3>
+    <div class="game-meta"><span>Racing</span><span>★ Speed</span></div>
+    <div class="game-bottom"><span class="coming">COMING SOON</span><button class="play-btn" disabled>SOON</button></div>
+   </div>
+  </article>
+
+  <article class="game-card" data-name="Mind Puzzle" data-cat="Puzzle">
+   <div class="cover puzzle"><span class="cover-icon">🧩</span></div>
+   <div class="game-info">
+    <h3>Mind Puzzle</h3>
+    <div class="game-meta"><span>Puzzle</span><span>★ Brain</span></div>
+    <div class="game-bottom"><span class="coming">COMING SOON</span><button class="play-btn" disabled>SOON</button></div>
+   </div>
+  </article>
+
+  <article class="game-card" data-name="Lost Adventure" data-cat="Adventure">
+   <div class="cover adventure"><span class="cover-icon">🗺️</span></div>
+   <div class="game-info">
+    <h3>Lost Adventure</h3>
+    <div class="game-meta"><span>Adventure</span><span>★ Explore</span></div>
+    <div class="game-bottom"><span class="coming">COMING SOON</span><button class="play-btn" disabled>SOON</button></div>
+   </div>
+  </article>
  </div>
  <div class="empty" id="empty">No games found. Try another search.</div>
+</section>
 
- <section class="upload-area" id="upload">
-  <h2>📤 Have a game?</h2>
-  <p>Our creator upload portal is coming soon. Soon you'll be able to upload HTML5 games directly from your phone and publish them to the gaming library.</p>
-  <p><b>RR Gaming Hub</b> – Your games, your platform.</p>
- </section>
+<section class="section" id="featured">
+ <div class="feature">
+  <div>
+   <div class="tag">BUILT FOR GAMERS</div>
+   <h2>One Hub.<br><span class="gradient-text">Endless Fun.</span></h2>
+   <p>Discover a growing collection of games made for players who love excitement, challenges and adventure. Your next favourite game is waiting.</p>
+   <a href="#games" class="primary-btn">EXPLORE LIBRARY →</a>
+  </div>
+  <div class="feature-art">🌌</div>
+ </div>
+</section>
+
+<section class="section" id="about">
+ <div class="section-head">
+  <div>
+   <div class="tag">WELCOME TO OUR WORLD</div>
+   <h2>More Than Just Games.</h2>
+   <p>RR Gaming Hub is built to bring browser gaming to everyone.</p>
+  </div>
+ </div>
+</section>
+
 </main>
 
 <footer>
- © 2026 RR Gaming Hub. All rights reserved.
+ <div class="container footer-inner">
+  <div>
+   <div class="brand">
+    <div class="logo">RR</div>
+    <div class="brand-name">RR <span>GAMING</span></div>
+   </div>
+   <p>Play beyond limits. © 2026 RR Gaming Hub.</p>
+  </div>
+  <div class="footer-links">
+   <a href="#home">Home</a>
+   <a href="#games">Games</a>
+   <a href="#about">About</a>
+  </div>
+ </div>
 </footer>
 
 <script>
 const search=document.getElementById('search');
-const cards=[...document.querySelectorAll('.game')];
-const buttons=[...document.querySelectorAll('.cat')];
+const cards=[...document.querySelectorAll('.game-card')];
+const categories=[...document.querySelectorAll('.cat')];
 const empty=document.getElementById('empty');
-let category='All';
+let activeCategory='All';
 
 function filterGames(){
- let term=search.value.toLowerCase();
+ const query=search.value.trim().toLowerCase();
  let count=0;
  cards.forEach(card=>{
-  let matchName=card.dataset.name.toLowerCase().includes(term);
-  let matchCat=category==='All'||card.dataset.cat===category;
-  card.style.display=matchName&&matchCat?'block':'none';
-  if(matchName&&matchCat)count++;
+  const matchesName=card.dataset.name.toLowerCase().includes(query);
+  const matchesCategory=activeCategory==='All'||card.dataset.cat===activeCategory;
+  const visible=matchesName&&matchesCategory;
+  card.style.display=visible?'':'none';
+  if(visible)count++;
  });
- empty.style.display=count?'none':'block';
+ empty.style.display=count===0?'block':'none';
 }
+
 search.addEventListener('input',filterGames);
-buttons.forEach(button=>{
+
+categories.forEach(button=>{
  button.addEventListener('click',()=>{
-  category=button.dataset.cat;
-  buttons.forEach(b=>b.classList.remove('active'));
+  activeCategory=button.dataset.cat;
+  categories.forEach(item=>item.classList.remove('active'));
   button.classList.add('active');
   filterGames();
  });
 });
+
+const menuBtn=document.getElementById('menuBtn');
+const navLinks=document.getElementById('navLinks');
+
+menuBtn.addEventListener('click',()=>{
+ const open=navLinks.classList.toggle('show');
+ menuBtn.textContent=open?'✕':'☰';
+ menuBtn.setAttribute('aria-expanded',String(open));
+});
+
+navLinks.querySelectorAll('a').forEach(link=>{
+ link.addEventListener('click',()=>{
+  navLinks.classList.remove('show');
+  menuBtn.textContent='☰';
+  menuBtn.setAttribute('aria-expanded','false');
+ });
+});
 </script>
+
 </body>
 </html>
