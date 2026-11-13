@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090b14">
+<title>RR Gaming Hub</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090b14;color:#fff;font-family:Arial,sans-serif}
+header{height:68px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:#111522;border-bottom:1px solid #252b40;position:sticky;top:0;z-index:5}
+.logo{font-size:22px;font-weight:900;color:#8c79ff}
+.logo span{color:white}
+nav a{color:#bbb;text-decoration:none;margin-left:18px;font-size:14px}
+.hero{padding:65px 7%;background:radial-gradient(ellipse at 80% 20%,#392276 0,transparent 45%),linear-gradient(120deg,#151a30,#090b14)}
+.hero h1{font-size:clamp(34px,7vw,60px);margin:0 0 15px}
+.hero h1 span{color:#9c87ff}
+.hero p{color:#b8bfd1;max-width:480px;line-height:1.7}
+.btn{display:inline-block;padding:13px 22px;background:#7958ff;color:white;border:0;border-radius:9px;text-decoration:none;font-weight:bold;margin-top:12px;cursor:pointer}
+main{padding:30px 5%}
+.search{width:100%;padding:15px;background:#171d2d;border:1px solid #303950;border-radius:10px;color:white;font-size:16px;outline:none}
+.categories{display:flex;gap:10px;overflow-x:auto;padding:20px 0}
+.cat{white-space:nowrap;padding:10px 17px;border-radius:20px;background:#191f30;color:#bbb;border:1px solid #303950;cursor:pointer}
+.cat.active,.cat:hover{background:#7958ff;color:white}
+.section-title{font-size:23px;margin:18px 0}
+.games{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:17px}
+.game{background:#151b2a;border:1px solid #282f43;border-radius:13px;overflow:hidden;transition:.2s}
+.game:hover{transform:translateY(-4px);border-color:#8c79ff}
+.cover{height:125px;display:grid;place-items:center;font-size:48px;background:linear-gradient(140deg,#27204d,#152b40)}
+.info{padding:13px}
+.info h3{font-size:15px;margin:0 0 7px}
+.info p{color:#9ca7bb;font-size:12px;margin:0}
+.play{display:block;text-align:center;background:#272044;color:#b8a9ff;padding:10px;text-decoration:none;font-size:13px;font-weight:bold}
+.empty{display:none;color:#aaa;padding:25px;text-align:center}
+.upload-area{margin-top:45px;padding:28px;background:#151b2a;border:1px solid #303950;border-radius:14px}
+.upload-area p{color:#aab2c5;line-height:1.6}
+footer{text-align:center;padding:30px;color:#81899b;border-top:1px solid #242b3e;font-size:13px}
+@media(max-width:500px){nav a{margin-left:10px;font-size:12px}.hero{padding:45px 6%}.games{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">RR <span>GAMING</span></div>
+ <nav>
+  <a href="#home">Home</a>
+  <a href="#games">Games</a>
+  <a href="#upload">Upload</a>
+ </nav>
+</header>
+
+<section class="hero" id="home">
+ <h1>PLAY. <span>EXPLORE.</span><br>REPEAT.</h1>
+ <p>Discover exciting browser games. Play instantly on your phone or computer. No installation required.</p>
+ <a class="btn" href="#games">Explore Games →</a>
+</section>
+
+<main id="games">
+ <input class="search" id="search" placeholder="🔍 Search games..." autocomplete="off">
+
+ <div class="categories" id="categories">
+  <button class="cat active" data-cat="All">All Games</button>
+  <button class="cat" data-cat="Action">Action</button>
+  <button class="cat" data-cat="Racing">Racing</button>
+  <button class="cat" data-cat="Arcade">Arcade</button>
+  <button class="cat" data-cat="Puzzle">Puzzle</button>
+  <button class="cat" data-cat="Adventure">Adventure</button>
+ </div>
+
+ <h2 class="section-title">🎮 Game Library</h2>
+ <div class="games" id="gameList">
+
+  <article class="game" data-name="Neon Dash" data-cat="Arcade">
+   <div class="cover">⚡</div>
+   <div class="info"><h3>Neon Dash</h3><p>Arcade • Coming soon</p></div>
+   <a class="play" href="#upload">Coming Soon</a>
+  </article>
+
+  <article class="game" data-name="Ball Breaker Infinity" data-cat="Arcade">
+   <div class="cover">🔮</div>
+   <div class="info"><h3>Ball Breaker Infinity</h3><p>Arcade • Coming soon</p></div>
+   <a class="play" href="#upload">Coming Soon</a>
+  </article>
+
+  <article class="game" data-name="Space Dash" data-cat="Adventure">
+   <div class="cover">🚀</div>
+   <div class="info"><h3>Space Dash</h3><p>Adventure • Coming soon</p></div>
+   <a class="play" href="#upload">Coming Soon</a>
+  </article>
+
+ </div>
+ <div class="empty" id="empty">No games found. Try another search.</div>
+
+ <section class="upload-area" id="upload">
+  <h2>📤 Have a game?</h2>
+  <p>Our creator upload portal is coming soon. Soon you'll be able to upload HTML5 games directly from your phone and publish them to the gaming library.</p>
+  <p><b>RR Gaming Hub</b> – Your games, your platform.</p>
+ </section>
+</main>
+
+<footer>
+ © 2026 RR Gaming Hub. All rights reserved.
+</footer>
+
+<script>
+const search=document.getElementById('search');
+const cards=[...document.querySelectorAll('.game')];
+const buttons=[...document.querySelectorAll('.cat')];
+const empty=document.getElementById('empty');
+let category='All';
+
+function filterGames(){
+ let term=search.value.toLowerCase();
+ let count=0;
+ cards.forEach(card=>{
+  let matchName=card.dataset.name.toLowerCase().includes(term);
+  let matchCat=category==='All'||card.dataset.cat===category;
+  card.style.display=matchName&&matchCat?'block':'none';
+  if(matchName&&matchCat)count++;
+ });
+ empty.style.display=count?'none':'block';
+}
+search.addEventListener('input',filterGames);
+buttons.forEach(button=>{
+ button.addEventListener('click',()=>{
+  category=button.dataset.cat;
+  buttons.forEach(b=>b.classList.remove('active'));
+  button.classList.add('active');
+  filterGames();
+ });
+});
+</script>
+</body>
+</html>
